@@ -1,1 +1,33 @@
-<p> TEST IT dddd<p>
+<h2>D3 Basics: Data-Binding</h2>
+
+<blockquote>D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document. For example, you can use D3 to generate an HTML table from an array of numbers. Or, use the same data to create an interactive SVG bar chart with smooth transitions and interaction.</blockquote>
+
+<pre>
+var data = [3,5,2,4,1];
+
+d3.select("#canvas")
+	.selectAll("circle")
+	.data(data)
+	.enter()
+	.append("circle")
+	.attr("cx", function(d,i) { return (i+1) * 30; })
+	.attr("cy", 20)
+	.attr("r", 10)
+	.attr("fill", "#3498db");
+</pre>
+
+<svg height="50" id="canvas1" />
+
+<pre>
+d3.select(&quot;#canvas2&quot;)
+	.selectAll(&quot;circle&quot;)
+	.data(data)
+	.enter()
+	.append(&quot;circle&quot;)
+	.attr(&quot;cx&quot;, function(d,i) { return (i+1) * 30; })
+	.attr(&quot;cy&quot;, function(d,i) { return d * 10; })
+	.attr(&quot;r&quot;, function(d,i) { return d * 3; })
+	.attr(&quot;fill&quot;, &quot;#3498db&quot;);
+</pre>
+
+<svg height="75" id="canvas2" />
