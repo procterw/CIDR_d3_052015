@@ -1,0 +1,18 @@
+<h2>Filtering</h2>
+
+<p>We don't even need D3 or lodash for this part. Javascript has a build in filter function for arrays.</p>
+
+<pre>
+var groupBy = "superkingdom";
+
+var sorted = _.sortBy(data, function(d) {
+  return parseInt(d.maxCode);
+});
+
+var data = d3.nest()
+  .key(function(d) { return d.status; })
+  .key(function(d) { return d[groupBy]; })
+  .entries(<span class="new">sorted.filter(filter)</span>);
+</pre>
+
+<p>This reduces our dataset from 12,952 rows to 5680 rows.</p>

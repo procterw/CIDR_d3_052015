@@ -1,33 +1,32 @@
-<h2>D3 Basics: Data-Binding</h2>
+<h2>D3 Basics: CSS</h2>
 
-<blockquote>D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document. For example, you can use D3 to generate an HTML table from an array of numbers. Or, use the same data to create an interactive SVG bar chart with smooth transitions and interaction.</blockquote>
-
-<pre>
-var data = [3,5,2,4,1];
-
-d3.select("#canvas")
-	.selectAll("circle")
-	.data(data)
-	.enter()
-	.append("circle")
-	.attr("cx", function(d,i) { return (i+1) * 30; })
-	.attr("cy", 20)
-	.attr("r", 10)
-	.attr("fill", "#3498db");
-</pre>
-
-<svg height="50" id="canvas1" />
+<p>If you're not planning on downloading your D3 plot, most of the styling should be done with CSS. The following CSS made the elements on slide 5 blue.</p>
 
 <pre>
-d3.select(&quot;#canvas2&quot;)
-	.selectAll(&quot;circle&quot;)
-	.data(data)
-	.enter()
-	.append(&quot;circle&quot;)
-	.attr(&quot;cx&quot;, function(d,i) { return (i+1) * 30; })
-	.attr(&quot;cy&quot;, function(d,i) { return d * 10; })
-	.attr(&quot;r&quot;, function(d,i) { return d * 3; })
-	.attr(&quot;fill&quot;, &quot;#3498db&quot;);
+circle, rect, ellipse, polygon {
+  fill: #3498db;
+}
+
+line, polyline {
+  fill: none;
+  stroke: #3498db;
+  stroke-width: 2;
+}
 </pre>
 
-<svg height="75" id="canvas2" />
+<p>You can also add classes to SVG elements.<p>
+
+<pre>
+circle.orange { fill: orange; }
+circle.blue { fill: blue; }
+</pre>
+
+<pre>
+&lt;circle cx=&quot;40&quot; cy=&quot;50&quot; r=&quot;25&quot; class=&quot;orange&quot;/&gt;
+&lt;circle cx=&quot;100&quot; cy=&quot;50&quot; r=&quot;25&quot; class=&quot;blue&quot;/&gt;
+</pre>
+
+<svg>
+  <circle cx="40" cy="25" r="25" class="orange"/>
+  <circle cx="100" cy="25" r="25" class="blue"/>
+</svg>

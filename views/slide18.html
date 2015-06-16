@@ -1,0 +1,23 @@
+<h2>A Simple Barchart</h2>
+
+<p>We're ready to add some bars now.</p>
+
+<pre>
+svg.selectAll("rect")
+  .data(data)
+  .enter()
+  .append("rect")
+  .attr("x", function(d) {
+    return x(d.key)
+  })
+  .attr("width", x.rangeBand())
+  .attr("y", function(d) {
+    return y(d.values.length);
+  })
+  .attr("height", function(d) {
+    return height - y(d.values.length)
+  });
+
+</pre>
+
+<div id="plot"></div>

@@ -1,15 +1,16 @@
-<h2>But How Did That Work?</h2>
+<h2>D3 Basics: Data-Binding</h2>
 
-<p>Some of that code probably looked a little strange. How did we select all circles before we added them? What does <code>enter()</code> do? Let's look at the code one line at a time.</p>
+<blockquote>D3 allows you to bind arbitrary data to a Document Object Model (DOM), and then apply data-driven transformations to the document. For example, you can use D3 to generate an HTML table from an array of numbers. Or, use the same data to create an interactive SVG bar chart with smooth transitions and interaction.</blockquote>
 
-<p><code>d3.select("#canvas")</code><br>Returns the first DOM selection with that name. There is only one #canvas, so the following methods operate on that.</p>
+<pre>
+d3.select(&quot;#canvas2&quot;)
+	.selectAll(&quot;circle&quot;)
+	.data(data)
+	.enter()
+	.append(&quot;circle&quot;)
+	.attr(&quot;cx&quot;, function(d,i) { return (i+1) * 30; })
+	.attr(&quot;cy&quot;, function(d,i) { return d * 10; })
+	.attr(&quot;r&quot;, function(d,i) { return d * 3; });
+</pre>
 
-<p><code>.selectAll("circle")</code><br>This selects all of the circle elements, even if there are none of them.</p>
-
-<p><code>.data(data)</code><br>The magical <code>data</code> function is what binds our dataset to the dom. This takes that empty selection of circles and attaches the dataset.</p>
-
-<p><code>.enter()</code><br>This compares how many elements are in the data and how many are currently in the DOM. If there are more elements in the data, it will add more elements. Without <code>enter</code> we would only affect elements that already exist.
-
-<p><code>.append("circle")</code><br>If we stopped the code here, we could look at the DOM tree and see one circle element for each element in our dataset. However we wouldn't actually see them since they wouldn't have a radius attribute.</p>
-
-<p><code>.attr("cx", function(d,i) { return (i+1) * 30; })</code><br>Earlier we manually made an SVG circle and set it's <code>cx</code> attribute. The <code>attr<code> function lets dynamically set this attribute for each datum based on its value or index.</p>
+<svg height="75" id="canvas" />

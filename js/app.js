@@ -6,7 +6,7 @@ angular.module("App", ["ui.router"])
   // For any unmatched url, redirect to /state1
   $urlRouterProvider.otherwise("/slide01");
 
-  var slideCount = 12;
+  var slideCount = 30;
 
   //
   // Now set up the states

@@ -1,0 +1,25 @@
+<h2>D3 Axes</h2>
+
+<p>Now that we have x and y scales we can use those to draw axes. D3 takes care of the lines, groups and text and adds ticks in the right places.</p>
+
+<pre>
+var xAxis = d3.svg.axis()
+  .scale(x)
+  .orient("bottom")
+  .ticks(21);
+
+var yAxis = d3.svg.axis()
+  .orient("left");
+
+svg.append("g")
+  .attr("class", "x axis")
+  .attr("transform", "translate(0," + (height) + ")")
+  .call(xAxis);
+
+layout.svg.append("g")
+  .attr("class", "y axis");
+</pre>
+
+<p>Notice that since we haven't finished our y scale yet, we can't add it yet.</p>
+
+<div id="plot"></div>

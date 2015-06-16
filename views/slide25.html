@@ -1,0 +1,94 @@
+<h2>A Less Simple Barplot</h2>
+
+<pre>
+
+function plot() {
+  
+  var groupBy = "superkingdom";
+
+  var sorted = _.sortBy(dataset, function(d) {
+    return parseInt(d.maxCode);
+  });
+
+  var data = d3.nest()
+    .key(function(d) { return d.status; })
+    .key(function(d) { return d[groupBy]; })
+    .entries(sorted.filter(filter));
+
+  <span class="comment">// The actual data is now two levels deep so we need 2 max functions</span>
+  y.domain([0, d3.max(data, function(d) {
+    <span class="new">return d3.max(d.values, function(d) {
+      return d.values.length;
+    });</span>
+  })]);
+
+  <span class="comment">// For domain, use map to get the levels of groupBy
+  // For range, use the width of the x scale</span>
+  <span class="new">x1.domain(_map(dataset, function(d) { return d[groupBy]; }))
+    .rangeRoundBands([0, x.rangeBand()])</span>
+
+  axes.y.scale(scales.y);
+
+  d3.select(".y.axis")
+    .attr("transform", "translate(-5,0)")
+    .call(axes.y)
+    .selectAll("g");
+
+<span class="new">
+  <span class="comment">// Select the status groups and add the new dataset</span>
+  var barGroup = svg.selectAll(".bar")
+    .data(data);
+
+  <span class="comment">// We don't need to update the groups because they don't move</span>
+
+  <span class="comment">// ENTER groups for each status level</span>
+  barGroup
+    .enter()
+    .append("g")
+    .attr("class", "bar")
+    .attr("transform", function(d,i) {
+      return "translate(" + x(d.key) + ",0)";
+    });
+
+  <span class="comment">// EXIT groups that no longer have data</span>
+  barGroup
+    .exit()
+    .transition()
+    .duration(500)
+    .remove();
+
+  <span class="comment">// UPDATE rectangles that already exist</span>
+  barGroup
+    .selectAll("rect")
+    .data(function(d) { return d.values })
+    .attr("fill", fill)
+    .attr("x", xattr)
+    .attr("width", x1.rangeBand())
+    .attr("y", yattr)
+    .attr("height", heightattr)
+
+  <span class="comment">// ENTER new rectangles</span>
+  barGroup
+    .selectAll("rect")
+    .data(function(d) { return d.values })
+    .enter()
+    .append("rect")
+    .on("mouseover", mouseover)
+    .on("mouseout", mouseout)
+    .on("click", appendDataTable)
+    .attr("x", xattr)
+    .attr("width", x1.rangeBand())
+    .attr("y", yattr)
+    .attr("height", heightattr);
+
+  <span class="comment">// EXIT leftover rectangles</span>
+  barGroup
+    .selectAll("rect")
+    .data(function(d) { return d.values })
+    .exit()
+    .remove();
+
+}
+  </span>
+
+</pre>

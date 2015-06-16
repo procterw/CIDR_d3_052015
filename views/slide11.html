@@ -1,17 +1,14 @@
-<h2>Conceptually Structuring The Data</h2>
+<h2>Loading The Data</h2>
 
-<p>First let's think about what the data needs to look like to make our barchart. We need to <b>plot</b> by <b>status</b>, <b>sort</b> by <b>maxCode</b>, <b>filter</b> by several different attributes and <b>group</b> by several different attributes.</p>
+<p>I saved the link as a CSV file called <code>data.csv</code>. D3 comes equipped with a CSV parsing function: <code>d3.csv("data.csv", callback)</code>. We'll put most of our code inside of the callback function because we can't draw anything until the data loads.</p>
 
-<p>To start simply we need a bar for each <b>status</b>. It'd be nice to break our dataset up by status and have a count for each one. Enter <code>d3.nest()</code>.</p>
+<p><code>d3.csv()</code> turns our CSV into an array of objects. That way each row of the CSV is one point of data with the approriate object properties for each column.</p>
 
 <pre>
-d3.csv("data.csv", function(data) {
-
-  var data = d3.nest()
-    .key(function(d) { return d.status })
-    .entries(dataset);
-
-});
+[
+ {activity: "active", batch: "Batch_01", class: "Alphaproteobacteria", clone: ... },
+ {activity: "work stopped", batch: "Batch_01", class: "Alphaproteobacteria", clone: ... },
+ {activity: "active", batch: "Batch_01", class: "Alphaproteobacteria", clone: ... },
+ ...
+]
 </pre>
-
-<p>Now instead of 12,952 elements we have an array with ____ elements</p>. When we use <code>data()</code> we'll get one object for each grouping, and we can easily scale them with the _____ property</p>

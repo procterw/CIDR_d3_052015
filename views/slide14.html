@@ -1,0 +1,19 @@
+<h2>Preparing the Canvas</h2>
+
+<p>First we need to make a large canvas to work with. Let's make it the whole width of the slide.</p>
+
+<pre>
+var margin = {top: 10, right: 10, bottom: 40, left: 65},
+  width = $("#plot").width() - margin.left - margin.right, // Using jQuery to get element width
+  height = 400 - margin.top - margin.bottom;
+
+var svg = d3.select("#plot").append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+</pre>
+
+<p>Why did we subtract the margins from width and height if we just add them back in later? We want the SVG to be full sized but we <code>transform</code> a group by the margin offset. Everything in our plot will be added to this group, Which gives us margins.</p>
+
+<div id="plot"></div>

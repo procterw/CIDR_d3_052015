@@ -65,6 +65,14 @@ pre {
   padding: 10px;
 }
 
+pre .new {
+  color: #3498db;
+}
+
+pre .comment {
+  color: #BBB;
+}
+
 .main {
   max-width: 850px;
   margin: 0 auto;
@@ -94,4 +102,41 @@ pre {
 
 .progress .bubble.active {
   background-color: #3498db;
+}
+
+
+
+/* SVG */
+
+circle, rect, ellipse, polygon {
+  fill: #3498db;
+}
+
+line, polyline {
+  fill: none;
+  stroke: #3498db;
+  stroke-width: 2;
+}
+
+circle.white {
+  fill: white;
+}
+
+circle.orange { fill: #e67e22; }
+circle.blue { fill: #3498db; }
+
+.x.axis .tick text {
+  text-anchor: end !important;
+  transform: rotate(-20deg);
+  font-size: 12px;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: black;
+  stroke-width: 2;
+}
+
+#plot {
+  width: 100%;
 }

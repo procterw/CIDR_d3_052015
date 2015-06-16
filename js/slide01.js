@@ -33,54 +33,14 @@ angular.module("App")
 
 })
 
-.controller("slide01")
+.controller("slide01", function(){})
 
-.controller("slide02", function($scope, Data) {
+.controller("slide02", function(){})
 
-  Data.get(function(data) {
-    console.log(data)
-  })
+.controller("slide03", function(){})
 
-})
+.controller("slide04", function(){})
 
-.controller("slide03")
+.controller("slide05", function(){})
 
-.controller("slide04")
-
-.controller("slide05")
-
-.controller("slide06")
-
-.controller("slide07", function($scope) {
-
-  data = [3,5,2,4,1];
-
-  d3.select("#canvas1")
-    .selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", function(d,i) { return (i+1) * 30; })
-    .attr("cy", 20)
-    .attr("r", 10)
-    .attr("fill", "#3498db");
-
-  d3.select("#canvas2")
-    .selectAll("circle")
-    .data(data)
-    .enter()
-    .append("circle")
-    .attr("cx", function(d,i) { return (i+1) * 30; })
-    .attr("cy", function(d,i) { return d * 10; })
-    .attr("r", function(d,i) { return d * 3; })
-    .attr("fill", "#3498db");
-
-})
-
-.controller("slide08", function($scope) {})
-
-.controller("slide09", function($scope) {})
-
-.controller("slide10", function($scope) {})
-
-.controller("slide11", function($scope) {})
+.controller("slide06", function(){})

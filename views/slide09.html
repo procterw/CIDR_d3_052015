@@ -1,9 +1,15 @@
-<h2>Example Project: Interactive Barchart</h2>
+<h2>But How Did That Work?</h2>
 
-<p>Seattle Structural Genomics Center for Infectious Disease (SSGCID) Target Status.</p>
+<p>Some of that code probably looked a little strange. How did we select all circles before we added them? What does <code>enter()</code> do? Let's look at the code one line at a time.</p>
 
-<p><b>Rows</b>: 12,953 organisms</p>
+<p><code>d3.select("#canvas")</code><br>Returns the first DOM selection with that name. There is only one #canvas, so the following methods operate on that.</p>
 
-<p><b>Columns</b>: target, annotation, species, status, activity, clone, protein, genePage, uniprot, class, superkingdom, targetRole, batch, community, maxCode, ligandCode, ligandScreenStatus</p>
+<p><code>.selectAll("circle")</code><br>This selects all of the circle elements, even if there are none of them.</p>
 
-<p><a href="http://willleahy.info/d3demo">http://willleahy.info/d3demo</a></p>
+<p><code>.data(data)</code><br>The <code>data</code> function is what binds our dataset to the dom. This takes that empty selection of circles and attaches the dataset.</p>
+
+<p><code>.enter()</code><br>This compares how many elements are in the dataset and how many are currently in the DOM. If there are more elements in the dataset, it will add more elements.
+
+<p><code>.append("circle")</code><br>If we stopped the code here, we could look at the DOM tree and see one circle element for each element in our dataset. However we wouldn't actually see them since they wouldn't have a radius attribute.</p>
+
+<p><code>.attr("cx", function(d,i) { return (i+1) * 30; })</code><br>Earlier we manually made an SVG circle and set it's <code>cx</code> attribute. The <code>attr</code> function lets dynamically set this attribute for each datum based on its value or index.</p>

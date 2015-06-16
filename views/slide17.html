@@ -1,0 +1,18 @@
+<h2>A Simple Barchart</h2>
+
+<p>First, let's get the y scale and add the y axis. Later on we'll filter the dataset before doing this, but for now we'll not use any filters.</p>
+
+<pre>
+scales.y.domain([0, d3.max(data, function(d) {
+  return d.values.length;
+})]);
+
+axes.y.scale(scales.y);
+
+d3.select(".y.axis")
+  .attr("transform", "translate(-5,0)")
+  .call(axes.y)
+  .selectAll("g");
+</pre>
+
+<div id="plot"></div>

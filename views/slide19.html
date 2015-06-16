@@ -1,0 +1,44 @@
+<h2>Grouping</h2>
+
+<p>We have a very basic plot, but we want to be able to group and filter it on the go. First we'll change the data model, then see how we have to update our plotting code.</p>
+
+<p>Grouping is the easy part. Remember <code>d3.nest()</code>? We can actually nest the data multiple times. For this example we'll group by superkingdom, but any property with few factors would work.</p>
+
+<pre>
+
+<span class="new">var groupBy = "superkingdom";</span>
+
+var sorted = _.sortBy(data, function(d) {
+  return parseInt(d.maxCode);
+});
+
+var data = d3.nest()
+  .key(function(d) { return d.status; })
+  <span class="new">.key(function(d) { return d[groupBy]; })</span>
+  .entries(sorted);
+
+</pre>
+
+<p>Now our values are one level deeper. The plan is to have a <b>group</b> for each "status" key and a <b>rect</b> for each superkingdom.</p>
+
+<pre>
+[
+  {
+    key: "target approved", 
+    values: [
+      {key: "Eukaryota", values: Array[155]},
+      {key: "Bacteria", values: Array[1546]},
+      {key: "Viruses", values: Array[115]}
+    ]
+  },
+  {
+    key: "selected", 
+    values: [
+      {key: "Eukaryota", values: Array[1070]},
+      {key: "Bacteria", values: Array[311]},
+      {key: "Viruses", values: Array[3]}
+    ]
+  }, 
+  ...
+ ]
+</pre>

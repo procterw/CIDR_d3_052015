@@ -1,0 +1,28 @@
+<h2>Conceptually Structuring The Data</h2>
+
+<p>However, we wanted to sort by maxCode. For that I'll use a handy library called lo-dash.</p>
+
+<pre>
+d3.csv("data.csv", function(dataset) {
+
+  var sorted = _.sortBy(data, function(d) {
+    return parseInt(d.maxCode);
+  });
+
+  var data = d3.nest()
+    .key(function(d) { return d.status; })
+    .entries(sorted);
+
+});
+</pre>
+
+<p>Now we have the statuses in chronological order.</p>
+
+<pre>
+[
+  { key: "target approved", values: Array[1816] },
+  { key: "selected", values: Array[1484] },
+  { key: "cloned", values: Array[2279] },
+  ...
+]
+</pre>
