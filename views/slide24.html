@@ -1,3 +1,29 @@
 <h2>Enter, Update, and Exit</h2>
 
-<p>PUT AN ILLUSTRATION HERE</p>
+<p>The plotting code in D3 is typically wrapped in a function, which we'll call plot.</p>
+
+<pre>
+plot() {
+  
+  filter and nest dataset
+
+  update y and x1 scales
+
+  update y axis
+
+  update bar groups
+  enter bar groups
+  exit bar groups
+
+  update rectangles
+  enter rectangles
+  exit rectangles
+
+}
+</pre>
+
+<p>You'll notice the two sections of <code>update</code>, <code>enter</code>, and <code>exit</code>. In dynamic D3 visualizatons this is called the <b>general update pattern</b>.</p>
+
+<p><b>enter</b> We've already used enter several times. It adds DOM elements until there are enough for each data point.</p>
+<p><b>update</b> Reposition elements that already have data bound to them. This won't be called the first time.</p>
+<p><b>exit</b> If some of the data is removed, exit will remove elements until there is one per data point.</p>

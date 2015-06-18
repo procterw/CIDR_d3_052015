@@ -1,0 +1,14 @@
+<h2>A Less Simple Barplot (With Events)</h2>
+
+<p>Filter by 
+	<span ng-click="filter('protein')" ng-class="{available:isAvailable('protein')}" class="clickable">protein availability</span> |
+	<span ng-click="filter('clone')" ng-class="{available:isAvailable('clone')}" class="clickable">clone availability</span>
+</p>
+
+<div id="plot"> </div>
+
+
+
+<ul id="output">
+
+</ul>

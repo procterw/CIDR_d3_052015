@@ -1,18 +1,28 @@
 <h2>Filtering</h2>
 
-<p>We don't even need D3 or lodash for this part. Javascript has a build in filter function for arrays.</p>
+<p>Now let's add some filters. For this example we'll filter out available proteins and available clones, but remember this general pattern works with any combination of filters.</p>
+
+<p>First we'll define a "filter' object. This just lets us keep track of what filters are on and makes it easy to update them.</p>
 
 <pre>
-var groupBy = "superkingdom";
-
-var sorted = _.sortBy(data, function(d) {
-  return parseInt(d.maxCode);
-});
-
-var data = d3.nest()
-  .key(function(d) { return d.status; })
-  .key(function(d) { return d[groupBy]; })
-  .entries(<span class="new">sorted.filter(filter)</span>);
+var filters = {
+  "species": "",
+  "clone" : "Not available",
+  "protein" : "Not available",
+};
 </pre>
 
-<p>This reduces our dataset from 12,952 rows to 5680 rows.</p>
+<p>Notice there is a species filter, but it's empty so it won't do anything unless we change it.</p>
+
+<pre>
+function filter(d) {
+  for (f in filters) {
+    var filt = filters[f];
+    filt = filt === "noFilter" ? "" : filt;
+    if (d[f].indexOf(filt) < 0) {
+      return false;
+    }
+  }
+  return true;
+};
+</pre>

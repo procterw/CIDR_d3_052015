@@ -1,18 +1,14 @@
-<h2>Changes to Scales</h2>
+<h2>Filtering</h2>
 
-<p>Our SVG canvas doesn't care about these changes. However, we'll need to add an additional x scale. Our original x scale places groups by <b>status</b> and the new one will place rectangles inside of the group by <b>superkingdom</b>.</p>
+<p>We don't even need D3 or lodash for this part. Javascript has a build in filter function for arrays.</p>
 
 <pre>
-var x = d3.scale.ordinal()
-  .domain(_.map(data, function(d) { 
-      return d.key;
-    }))
-  .rangeRoundBands([0, width], 0.1);
+var groupBy = "superkingdom";
 
-<span class="new">var x1 = d3.scale.ordinal()</span>
-
-var y = d3.scale.linear()
- .range([height, 0]);
+var data = d3.nest()
+  .key(function(d) { return d.status; })
+  .key(function(d) { return d[groupBy]; })
+  .entries(<span class="new">dataset.filter(filter)</span>);
 </pre>
 
-<p>Pretty painless! We just initialized a new ordinal scale. Since we're leaving this project open for different groupings we don't know enough yet to add the domain or range.</p>
+<p>This reduces our dataset from 12,952 rows to 5680 rows.</p>

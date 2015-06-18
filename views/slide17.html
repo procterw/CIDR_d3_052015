@@ -1,18 +1,31 @@
 <h2>A Simple Barchart</h2>
 
-<p>First, let's get the y scale and add the y axis. Later on we'll filter the dataset before doing this, but for now we'll not use any filters.</p>
-
-<pre>
-scales.y.domain([0, d3.max(data, function(d) {
-  return d.values.length;
-})]);
-
-axes.y.scale(scales.y);
-
-d3.select(".y.axis")
-  .attr("transform", "translate(-5,0)")
-  .call(axes.y)
-  .selectAll("g");
-</pre>
+<p>Eventually we'll the plot will be frequently updated with new filters and groupings, so we need to wrap the plotting code in a function.</p>
 
 <div id="plot"></div>
+
+<pre>
+<span class="new">function plot() {</span>
+
+  var data = d3.nest()
+    .key(function(d) { return d.status })
+    .entries(dataset);
+
+  });
+  <span class="new">
+  <span class="comment">// Set y domain now that our data is nested</span>
+  y.domain([0, d3.max(data, function(d) {
+    return d.values.length;
+  })]);
+
+  <span class="comment">// Scale y axis</span>
+  axes.y.scale(scales.y);
+
+  <span class="comment">// Draw y axis</span>
+  d3.select(".y.axis")
+    .attr("transform", "translate(-5,0)")
+    .call(axes.y)
+    .selectAll("g");
+
+}</span>
+</pre>

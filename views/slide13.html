@@ -1,22 +1,20 @@
 <h2>Conceptually Structuring The Data</h2>
 
-<p>However, we wanted to sort by maxCode. For that I'll use a handy library called lo-dash.</p>
+<p>For our simple barchart we'll need need a bar for each status. It'd be nice to break our dataset up by status and have a count for each one. Enter <code>d3.nest()</code>.
 
 <pre>
 d3.csv("data.csv", function(dataset) {
 
-  var sorted = _.sortBy(data, function(d) {
-    return parseInt(d.maxCode);
-  });
+  dataset = _.sortBy(dataset, function(d) { return parseInt(d.maxCode); });
 
-  var data = d3.nest()
-    .key(function(d) { return d.status; })
-    .entries(sorted);
+  <span class="new">var data = d3.nest()
+    .key(function(d) { return d.status })
+    .entries(dataset);</span>
 
 });
 </pre>
 
-<p>Now we have the statuses in chronological order.</p>
+<p>Now instead of 12,952 elements we have an array with 14 elements. When we use <code>data()</code> we'll get one object for each grouping, and we can easily scale them with the length of <code>value</code></p>
 
 <pre>
 [

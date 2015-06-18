@@ -1,29 +1,18 @@
-<h2>Enter, Update, and Exit</h2>
+<h2>Changes to Scales</h2>
 
-<p>The plotting code in D3 is typically wrapped in a function, which we'll call plot.</p>
+<p>Our SVG canvas doesn't care about these changes. However, we'll need to add an additional x scale. Our original x scale places groups by <b>status</b> and the new one will place rectangles inside of the group by <b>superkingdom</b>.</p>
 
 <pre>
-plot() {
-  
-  filter and nest dataset
+var x = d3.scale.ordinal()
+  .domain(_.map(data, function(d) { 
+      return d.key;
+    }))
+  .rangeRoundBands([0, width], 0.1);
 
-  update y and x1 scales
+<span class="new">var x1 = d3.scale.ordinal();</span>
 
-  update y axis
-
-  update bar groups
-  enter bar groups
-  exit bar groups
-
-  update rectangles
-  enter rectangles
-  exit rectangles
-
-}
+var y = d3.scale.linear()
+ .range([height, 0]);
 </pre>
 
-<p>You'll notice the two sections of <code>update</code>, <code>enter</code>, and <code>exit</code>. In dynamic D3 visualizatons this is called the <b>general update pattern</b>.</p>
-
-<p><b>enter</b> We've already used enter several times. It adds DOM elements until there are enough for each data point.</p>
-<p><b>update</b> Reposition elements that already have data bound to them. This won't be called the first time.</p>
-<p><b>exit</b> If some of the data is removed, exit will remove elements until there is one per data point.</p>
+<p>Pretty painless! We just initialized a new ordinal scale. Since we're leaving this project open for different groupings we don't know enough yet to add the domain or range.</p>

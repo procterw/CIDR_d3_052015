@@ -30,7 +30,7 @@ angular.module("App")
   }
 
   function initSvg(el) {
-    var margin = {top: 10, right: 10, bottom: 65, left: 65},
+    var margin = {top: 10, right: 10, bottom: 80, left: 65},
       width = $(el).width() - margin.left - margin.right,
       height = 400 - margin.top - margin.bottom;
 
@@ -76,12 +76,33 @@ angular.module("App")
 
   }
 
+  function addLabels(layout) {
+        // x axis label
+    layout.svg.append("text")
+      .attr("class", "x label")
+      .attr("text-anchor", "middle")
+      .attr("x", layout.width/2)
+      .attr("y", layout.height + layout.margin.bottom)
+      .text("status");
+
+    // y axis label
+    layout.svg.append("text")
+      .attr("class", "y label")
+      .attr("text-anchor", "middle")
+      .attr("x", -layout.height/2)
+      .attr("y", -55)
+      .attr("transform", "rotate(-90)")
+      .text("count");
+
+  }
+
   return {
     get: get,
     initDataset: initDataset,
     initSvg: initSvg,
     initScales: initScales,
-    initAxes: initAxes
+    initAxes: initAxes,
+    addLabels: addLabels
   }
 
 });

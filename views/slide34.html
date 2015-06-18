@@ -1,0 +1,105 @@
+<h2>A Less Simple Barplot (With Events)</h2>
+
+<pre>
+
+function plot() {
+  
+  var groupBy = "superkingdom";
+
+  var data = d3.nest()
+    .key(function(d) { return d.status; })
+    .key(function(d) { return d[groupBy]; })
+    .entries(dataset.filter(filter));
+
+ 
+  y.domain([0, d3.max(data, function(d) {
+    return d3.max(d.values, function(d) {
+      return d.values.length;
+    });
+  })]);
+
+  var groupFactors = _.unique(_.map(dataset, function(d) { return d[groupBy]; }));
+
+  x1.domain(groupFactors)
+    .rangeRoundBands([0, x.rangeBand()])
+
+  yAxis.scale(y);
+
+  d3.select(".y.axis")
+    .attr("transform", "translate(-5,0)")
+    .transition()
+    .duration(500)
+    .call(yAxis)
+    .selectAll("g");
+
+  var barGroups = svg.selectAll(".bar")
+    .data(data);
+
+  barGroups
+    .enter()
+    .append("g")
+    .attr("class", "bar")
+    .attr("transform", function(d,i) {
+      return "translate(" + x(d.key) + ",0)";
+    });
+
+  barGroups
+    .exit()
+    .remove();
+
+  var bars = barGroup.selectAll("rect")
+    .data(function(d) { return d.values; });
+
+  bars
+    .transition()
+    .duration(500)
+    .attr("y", function(d) {
+      return y(d.values.length);
+    })
+    .attr("height", function(d) {
+      return height - y(d.values.length);
+    });
+
+  bars
+    .enter()
+    .append("rect")
+    .attr("class", function(d) {
+      return d.key;
+    })
+    .attr("x", function(d) {
+      return x1(d.key);
+    })
+    .attr("width", x1.rangeBand())
+    .attr("y", height)
+    .attr("height", 0)
+    <span class="new">.on(&quot;click&quot;, function(d) {
+      $(&quot;#output&quot;).empty()
+      var vals = d.values;
+      _.forEach(vals, function(val) {
+        var html = &quot;&lt;li&gt;&lt;a href=&quot; 
+         + val.genePage
+         + &quot;&gt;&lt;b&gt;Target: &lt;/b&gt;&quot;
+         + val.target
+         + &quot; &lt;b&gt;Species: &lt;/b&gt;&quot;
+         + val.species
+         + &quot;&lt;/a&gt;&quot;;
+        $(&quot;#output&quot;).append(html);
+      });
+    })</span>
+    .transition()
+    .duration(500)
+    .attr("y", function(d) {
+      return y(d.values.length);
+    })
+    .attr("height", function(d) {
+      return height - y(d.values.length);
+    });
+
+  bars
+    .exit()
+    .remove();
+
+}
+  </span>
+
+</pre>

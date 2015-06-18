@@ -2,25 +2,14 @@
 
 <p>First let's think about what the data needs to look like to make our barchart. We need to <b>plot</b> by <b>status</b>, <b>sort</b> by <b>maxCode</b>, <b>filter</b> by several different attributes and <b>group</b> by several different attributes.</p>
 
-<p>To start simply we need a bar for each <b>status</b>. It'd be nice to break our dataset up by status and have a count for each one. Enter <code>d3.nest()</code>.</p>
+<p>We want to use different filters and grouping, but the data will always need to be sorted by maxcode, so let's do that now.</p>
 
 <pre>
-d3.csv("data.csv", function(data) {
+d3.csv("data.csv", function(dataset) {
 
-  var data = d3.nest()
-    .key(function(d) { return d.status })
-    .entries(dataset);
+  dataset = _.sortBy(dataset, function(d) { return parseInt(d.maxCode); });
 
 });
 </pre>
 
-<p>Now instead of 12,952 elements we have an array with 14 elements. When we use <code>data()</code> we'll get one object for each grouping, and we can easily scale them with the length of <code>value</code></p>
-
-<pre>
-[
-  { key: "in PDB", values: Array[622] },
-  { key: "purified", values: Array[1632] },
-  { key: "crystallized", values: Array[716] },
-  ...
-]
-</pre>
+<p>The <code>_.sortBy()</code> is from lodash, a super useful JS library which has lots of useful functions for manipulating data. It'll come up frequently in these examples.</p>

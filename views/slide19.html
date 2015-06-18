@@ -1,44 +1,49 @@
-<h2>Grouping</h2>
+<h2>A Simple Barchart</h2>
 
-<p>We have a very basic plot, but we want to be able to group and filter it on the go. First we'll change the data model, then see how we have to update our plotting code.</p>
+<p>We're ready to add some bars now.</p>
 
-<p>Grouping is the easy part. Remember <code>d3.nest()</code>? We can actually nest the data multiple times. For this example we'll group by superkingdom, but any property with few factors would work.</p>
+<div id="plot"></div>
 
 <pre>
 
-<span class="new">var groupBy = "superkingdom";</span>
+function plot() {
 
-var sorted = _.sortBy(data, function(d) {
-  return parseInt(d.maxCode);
-});
+  var data = d3.nest()
+    .key(function(d) { return d.status })
+    .entries(dataset);
 
-var data = d3.nest()
-  .key(function(d) { return d.status; })
-  <span class="new">.key(function(d) { return d[groupBy]; })</span>
-  .entries(sorted);
+  });
+  
+  y.domain([0, d3.max(data, function(d) {
+    return d.values.length;
+  })]);
+
+  axes.y.scale(scales.y);
+
+  d3.select(".y.axis")
+    .attr("transform", "translate(-5,0)")
+    .call(axes.y)
+    .selectAll("g");
+  <span class="new">
+  svg.selectAll("rect")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("x", function(d) {
+      return x(d.key)
+    })
+    .attr("width", x.rangeBand())
+    .attr("y", function(d) {
+      return y(d.values.length);
+    })
+    .attr("height", function(d) {
+      return height - y(d.values.length)
+  });</span>
+
+}
+
+
 
 </pre>
 
-<p>Now our values are one level deeper. The plan is to have a <b>group</b> for each "status" key and a <b>rect</b> for each superkingdom.</p>
 
-<pre>
-[
-  {
-    key: "target approved", 
-    values: [
-      {key: "Eukaryota", values: Array[155]},
-      {key: "Bacteria", values: Array[1546]},
-      {key: "Viruses", values: Array[115]}
-    ]
-  },
-  {
-    key: "selected", 
-    values: [
-      {key: "Eukaryota", values: Array[1070]},
-      {key: "Bacteria", values: Array[311]},
-      {key: "Viruses", values: Array[3]}
-    ]
-  }, 
-  ...
- ]
-</pre>

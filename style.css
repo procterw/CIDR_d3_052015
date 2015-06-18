@@ -73,6 +73,46 @@ pre .comment {
   color: #BBB;
 }
 
+span.clickable {
+  color: white;
+  background-color: #e74c3c;
+  padding: 5px 10px;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+span.clickable:hover {
+  opacity: 0.7;
+}
+
+span.clickable.available {
+  background-color: #2ecc71;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  padding: 0;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+a {
+  color: #2980b9;
+}
+
+a:visited {
+  color: #9b59b6;
+}
+
 .main {
   max-width: 850px;
   margin: 0 auto;
@@ -88,10 +128,10 @@ pre .comment {
 }
 
 .progress .bubble {
-  width: 14px;
-  height: 14px;
-  border-radius: 14px;
-  margin: 10px;
+  width: 13px;
+  height: 13px;
+  border-radius: 15px;
+  margin: 3px;
   background-color: #DDD;
   display: block;
 }
@@ -108,11 +148,11 @@ pre .comment {
 
 /* SVG */
 
-circle, rect, ellipse, polygon {
+.colored circle, rect, ellipse, polygon {
   fill: #3498db;
 }
 
-line, polyline {
+.colored line, polyline {
   fill: none;
   stroke: #3498db;
   stroke-width: 2;
@@ -125,10 +165,36 @@ circle.white {
 circle.orange { fill: #e67e22; }
 circle.blue { fill: #3498db; }
 
+.Bacteria {
+  fill: rgb(241, 196, 15);
+}
+
+.Eukaryota {
+  fill: rgb(230, 126, 34);
+}
+
+.Viruses {
+  fill: rgb(231, 76, 60);
+}
+
+.bar rect:hover {
+  opacity: 0.5;
+}
+
 .x.axis .tick text {
   text-anchor: end !important;
   transform: rotate(-20deg);
   font-size: 12px;
+}
+
+.y.axis .tick text {
+  font-size: 12px;
+}
+
+.label {
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .axis path, .axis line {
@@ -138,5 +204,10 @@ circle.blue { fill: #3498db; }
 }
 
 #plot {
+  width: 100%;
+  height: 400px;
+}
+
+#canvas svg {
   width: 100%;
 }

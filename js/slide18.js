@@ -1,6 +1,6 @@
 angular.module("App")
 
-.controller("slide18", function($scope, Data) {
+.controller("slide19", function($scope, Data) {
 
   Data.get(function(dataset) {
 
@@ -13,6 +13,8 @@ angular.module("App")
     var scales = Data.initScales(data, layout.width, layout.height);
 
     var axes = Data.initAxes(scales);
+
+    Data.addLabels(layout);
 
     // The x axis never changes so we can just draw it now
     layout.svg.append("g")
@@ -45,6 +47,12 @@ angular.module("App")
         return scales.x(d.key)
       })
       .attr("width", scales.x.rangeBand())
+      .attr("y", layout.height)
+      .attr("height", 0)
+      .transition()
+      .delay(function(d,i) {
+        return 200 + i * 10;
+      })
       .attr("y", function(d) {
         return scales.y(d.values.length);
       })
@@ -57,7 +65,7 @@ angular.module("App")
 
 })
 
-.controller("slide19", function($scope, Data) {
+.controller("slide20", function($scope, Data) {
 
   Data.get(function(dataset) {
 
@@ -76,9 +84,9 @@ angular.module("App")
 
 })
 
-.controller("slide20", function(){})
+.controller("slide21", function(){})
 
-.controller("slide21", function(Data){
+.controller("slide22", function(Data){
 
   var filters = {
     "species": "",
@@ -112,10 +120,8 @@ angular.module("App")
 
 })
 
-.controller("slide22", function(){})
-
 .controller("slide23", function(){})
 
 .controller("slide24", function(){})
 
-.controller("slide25", function(){})
+.controller("slide25", function(){});

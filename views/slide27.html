@@ -1,0 +1,76 @@
+<h2>A Less Simple Barplot (Static)</h2>
+
+<pre>
+
+function plot() {
+  
+  var groupBy = "superkingdom";
+
+  var data = d3.nest()
+    .key(function(d) { return d.status; })
+    .key(function(d) { return d[groupBy]; })
+    .entries(dataset.filter(filter));
+
+  <span class="comment">// The actual data is now two levels deep so we need 2 max functions</span>
+  y.domain([0, d3.max(data, function(d) {
+    <span class="new">return d3.max(d.values, function(d) {
+      return d.values.length;
+    });</span>
+  })]);
+
+  <span class="comment">// Find the different levels of groupBy</span>
+  <span class="new">var groupFactors = _.unique(_.map(dataset, function(d) { return d[groupBy]; }));</span>
+  <span class="comment">
+  // For range, use the width of the x scale</span>
+  <span class="new">x1.domain(groupFactors)
+    .rangeRoundBands([0, x.rangeBand()])</span>
+
+  yAxis.scale(y);
+
+  d3.select(".y.axis")
+    .attr("transform", "translate(-5,0)")
+    .call(yAxis)
+    .selectAll("g");
+
+<span class="new">
+  <span class="comment">// Select the status groups and add the new dataset</span>
+  var barGroups = svg.selectAll(".bar")
+    .data(data);
+
+  <span class="comment">// ENTER groups for each status level</span>
+  barGroups
+    .enter()
+    .append("g")
+    .attr("class", "bar")
+    .attr("transform", function(d,i) {
+      return "translate(" + x(d.key) + ",0)";
+    });
+
+  <span class="comment">// Select and append data to bars</span>
+  <span class="comment">// bars is a selection of all rectangles in all groups</span>
+  var bars = barGroup.selectAll("rect")
+    .data(function(d) { return d.values; });
+
+  <span class="comment">// ENTER new rectangles</span>
+  bars
+    .enter()
+    .append("rect")
+    .attr("class", function(d) {
+      return d.key;
+    })
+    .attr("x", function(d) {
+      return x1(d.key);
+    })
+    .attr("width", x1.rangeBand())
+    .attr("y", function(d) {
+      return y(d.values.length);
+    })
+    .attr("height", function(d) {
+      return layout.height - y(d.values.length);
+    });</span>
+
+
+}
+  </span>
+
+</pre>

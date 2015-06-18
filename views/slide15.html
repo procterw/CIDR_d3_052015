@@ -7,22 +7,14 @@
 <p>Scales return a function which takes a value in the domain and returns the correct value in the range.</p>
 
 <pre>
-function getFactors(data) {
-  var sorted = _.sortBy(data, function(d) {
-    return d.maxCode;
-  });
-  var factors = _.map(sorted, function(d) {
-    return d.status;
-  });
-  return _.unique(factors);
-}
+var factors = _.unique(_.map(function(dataset) { return d.status; }));
 
 var x = d3.scale.ordinal()
-  .domain(getFactors(dataset))
+  .domain(factors)
   .rangeRoundBands([0, width], 0.1);
 
 var y = d3.scale.linear()
   .range([height, 0]);
 </pre>
 
-<p>Why didn't we define a domain for y? The y domain will change every time we update the plot so it makes sense to define it later in the plottig code.</p>
+<p>Why didn't we define a domain for y? The y domain will change every time we update the plot so it makes sense to define it later in the plotting code.</p>

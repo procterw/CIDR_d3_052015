@@ -1,23 +1,26 @@
 <h2>A Simple Barchart</h2>
 
-<p>We're ready to add some bars now.</p>
-
-<pre>
-svg.selectAll("rect")
-  .data(data)
-  .enter()
-  .append("rect")
-  .attr("x", function(d) {
-    return x(d.key)
-  })
-  .attr("width", x.rangeBand())
-  .attr("y", function(d) {
-    return y(d.values.length);
-  })
-  .attr("height", function(d) {
-    return height - y(d.values.length)
-  });
-
-</pre>
+<p>Now let's add some axis labels. These are just text elements that we manually position.</p>
 
 <div id="plot"></div>
+
+<pre>
+<span class="new">function plot() {</span>
+
+layout.svg.append("text")
+  .attr("class", "x label")
+  .attr("text-anchor", "middle")
+  .attr("x", layout.width/2)
+  .attr("y", layout.height + layout.margin.bottom)
+  .text("status");
+
+layout.svg.append("text")
+  .attr("class", "y label")
+  .attr("text-anchor", "middle")
+  .attr("x", -layout.height/2)
+  .attr("y", -55)
+  .attr("transform", "rotate(-90)")
+  .text("count");
+
+}</span>
+</pre>
